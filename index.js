@@ -19,12 +19,12 @@ bot.on("message", msg=>{
         + "```css\n+ - * / ! ^n sqrt``` ```Typing a message with only numbers and one of these operands (no command needed) will do some math for you. (Example: [5!], [1+2], [sqrt64], [2^8], etc)\nNote: Does not support 'long math' yet. Keep things simple```"
         + "```css\n!flip``` ```Flips a coin```");
     }
-    if(message.includes("rollstats")){
+    if(message == prefix + "rollstats"){
         var stat = rollStats();
         var total = totalMod(CalModifier(stat));
         msg.channel.sendMessage("Here's your generated statblock: " + stat + "\nHere are your modifiers: " + CalModifier(stat) + "\n" + total);
     }
-    if(message.includes("rollcharacter")){
+    if(message == prefix + "rollcharacter"){
         msg.channel.sendMessage(rollCharacter());
     }
     if(msg.content.startsWith(prefix + "flip")){
