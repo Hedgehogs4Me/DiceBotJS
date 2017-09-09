@@ -1,0 +1,22 @@
+{
+  "name": "Spellbot",
+  "author": "Marisa-chan",
+  "license": "MIT",
+  "version": "1.8.9",
+  "description": "A D&D 5e spell fetcher for Discord, running on Discord.js.",
+  "main": "sb.js",
+  "scripts": {
+    "start": "node --harmony sb.js",
+    "db": "node --harmony populateModels.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.0.0",
+    "js-beautify": "^1.6.0",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.7.2",
+    "xml2js": "^0.4.0"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  }
+}
