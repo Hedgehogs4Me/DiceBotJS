@@ -179,7 +179,7 @@ function rollCharacter(){
     return assignPoints(dClass, stats, race);;
 }
 function assignPoints(classes, stats, race){
-    var sortStats = numSort(stats);
+    //var sortStats = numSort(stats);
     var str = stats[0];
     var con = stats[1];
     var dex = stats[2];
@@ -260,7 +260,7 @@ function rollStats(){
         for(i = 0; i <4; i++){
             stat[i] = RollSingle(6);
         }
-        stat.sort();
+        //stat.sort();
         stat.shift();
         for(x = 0; x < 3; x++){
             score[j] = score[j] + stat[x];
@@ -275,7 +275,7 @@ function rollStats(){
 function CalModifier(score){
     var mods = new Array(0,0,0,0,0,0);
     for(i = 0; i <6; i++){
-        mods[i] = parseInt((score[i] - 10)/2);
+        mods[i] = Math.floor((score[i])/2-5);
     }
     return mods;
 }
