@@ -265,10 +265,22 @@ function rollStats(){
         for(x = 0; x < 3; x++){
             score[j] = score[j] + stat[x];
         }
+        
+        
+
         //console.log(stat);
         //console.log(score);
     }
-    
+    var total = ModInt(CalModifier(score));
+    console.log(stat);
+    console.log(score);
+    console.log(total);
+
+    if(total < 0){
+        console.log("Im here");
+        score = rollStats();
+
+    }
     return score;
 
 }
@@ -278,6 +290,13 @@ function CalModifier(score){
         mods[i] = Math.floor((score[i])/2-5);
     }
     return mods;
+}
+function ModInt(mods){
+    var total = 0;
+    for(i = 0; i < 6; i++){
+        total = total + mods[i];
+    }
+    return total;
 }
 function totalMod(mods){
     var total = 0;
