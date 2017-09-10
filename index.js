@@ -260,7 +260,7 @@ function rollStats(){
         for(i = 0; i <4; i++){
             stat[i] = RollSingle(6);
         }
-        //stat.sort();
+        stat.sort();
         stat.shift();
         for(x = 0; x < 3; x++){
             score[j] = score[j] + stat[x];
