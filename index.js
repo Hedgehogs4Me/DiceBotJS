@@ -176,10 +176,12 @@ function rollCharacter(){
     console.log(stats[0]);
     var race = races[generateRace()];
     var dClass = classes[generateClass()];
-    return assignPoints(dClass, stats, race);;
+    var statsToSort = stats;
+    return assignPoints(dClass, stats, statsToSort, race);
 }
-function assignPoints(classes, stats, race){
-    //var sortStats = numSort(stats);
+function assignPoints(classes, stats, statsToSort, race){
+    console.log(stats);
+    //statsToSort.sort();
     var str = stats[0];
     var con = stats[1];
     var dex = stats[2];
@@ -229,6 +231,8 @@ function assignPoints(classes, stats, race){
                 "Cha: " + cha + "\n" +
                 "Wis: " + wis + "\n" +
                 "Int: " + int + "\n";
+    console.log(stats);
+    console.log(statsToSort);
     return final;
 }
 function numSort(a){
