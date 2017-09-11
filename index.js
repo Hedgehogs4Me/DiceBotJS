@@ -6,8 +6,8 @@ var classes = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Palad
 var races = ["Dwarf", "Elf", "Halfling", "Human", "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling", "Aasimar", "Khajit", "Triton", "Firbolg","Kenku"];
 bot.on("message", msg=>{
     var message = msg.content.toLowerCase();
-    let prefix = "~";
-    //let rollPre = "!";
+    let prefix = "!";
+    let rollPre = "!";
     let botName = bot.user;
     if(msg.content.startsWith(prefix) || message.includes(botName)){}
     else return;
@@ -85,7 +85,7 @@ bot.on("message", msg=>{
 bot.on("message", msg=>{
     
     var message = msg.content.toLowerCase();
-    let prefix = "~";
+    let prefix = "!";
     let botName = bot.user;
     if(msg.content.startsWith(prefix) && msg.content.includes("d")){
         var fullRoll = msg.content;
@@ -169,17 +169,72 @@ function choose(){
 }
 function rollCharacter(){
     var stats = rollStats();
-    //console.log(stats);
-    stats = String(stats);
-    //console.log(stats);
-    stats = stats.split(",");
     console.log(stats);
+    stats = String(stats);
+    console.log(stats);
+    stats = stats.split(",");
+    console.log(stats[0]);
     var race = races[generateRace()];
     var dClass = classes[generateClass()];
-    //var statsToSort = stats;
+    var statsToSort = stats;
+    return assignPoints(dClass, stats, statsToSort, race);
+}/*
+function assignPoints(classes, stats, statsToSort, race){
+    console.log(stats);
+    //statsToSort.sort();
+    var str = stats[0];
+    var con = stats[1];
+    var dex = stats[2];
+    var cha = stats[3];
+    var wis = stats[4];
+    var int = stats[5];
     
-    return assignPoints(dClass, stats, race);
-}
+    if(classes == "Rogue"){
+        
+    }
+    if(classes == "Barbarian"){
+        
+    }
+    if(classes == "Bard"){
+
+    }
+    if(classes == "Druid"){
+
+    }
+    if(classes == "Fighter"){
+
+    }
+    if(classes == "Monk"){
+
+    }
+    if(classes == "Paladin"){
+
+    }
+    if(classes == "Ranger"){
+
+    }
+    if(classes == "Sorcerer"){
+
+    }
+    if(classes == "Warlock"){
+
+    }
+    if(classes == "Wizard"){
+
+    }
+
+    var final = "Race: " + race + "\n" +
+                "Class: " + classes + "\n" +
+                "Str: " + str + "\n" +
+                "Con: " + con + "\n" +
+                "Dex: " + dex + "\n" +
+                "Cha: " + cha + "\n" +
+                "Wis: " + wis + "\n" +
+                "Int: " + int + "\n";
+    console.log(stats);
+    console.log(statsToSort);
+    return final;
+}*/
 function assignPoints(classes, stats, race){
     //stats = parseInt(stats);
     stats = stats.map(Number);
@@ -345,16 +400,15 @@ function rollStats(){
         //console.log(score);
     }
     var total = ModInt(CalModifier(score));
-    //console.log(stat);
-    //console.log(score);
-    //console.log(total);
+    console.log(stat);
+    console.log(score);
+    console.log(total);
 
     if(total < 0){
         console.log("Im here");
         score = rollStats();
 
     }
-    //console.log(score);
     return score;
 
 }
@@ -438,4 +492,4 @@ function Roll(dieNum, dieSide, mod){
     }
     else {return total + " = (" + rolls + ")" + " + " + mod;}
 }
-bot.login('MzU2NDk5MTEwMDI4NzcxMzQw.DJcPMQ.3pgzST39UgYoYjjmEplDzFHRKko');
+bot.login('MzE0MTg0NzMzNTczNjQ0Mjg4.C_0fAA.pEbYZb5w06PKvr2Lv_HqcJ-X63k');
