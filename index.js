@@ -285,7 +285,13 @@ function assignPoints(classes, stats, race){
         con = temp2;
     }
     if(classes == "Fighter"){
-        //good as is?
+        var build = RollSingle(2);
+        if(build == 1){}
+        else if(build == 2){
+            var temp1 = dex;
+            dex = str;
+            str = temp1;
+        }
     }
     if(classes == "Monk"){
         var temp1 = dex;
@@ -317,8 +323,8 @@ function assignPoints(classes, stats, race){
         cha = str;
         str = temp1;
         var temp2 = con;
-        con = str;
-        str = temp2;
+        con = con;
+        con = temp2;
     }
     if(classes == "Warlock"){
         var temp1 = cha;
