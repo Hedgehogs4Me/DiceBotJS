@@ -438,4 +438,4 @@ function Roll(dieNum, dieSide, mod){
     }
     else {return total + " = (" + rolls + ")" + " + " + mod;}
 }
-bot.login('MzE0MTg0NzMzNTczNjQ0Mjg4.C_0fAA.pEbYZb5w06PKvr2Lv_HqcJ-X63k');
+bot.login('MzU2NDk5MTEwMDI4NzcxMzQw.DJcPMQ.3pgzST39UgYoYjjmEplDzFHRKko');
