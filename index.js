@@ -6,8 +6,8 @@ var classes = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Palad
 var races = ["Dwarf", "Elf", "Halfling", "Human", "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling", "Aasimar", "Khajit", "Triton", "Firbolg","Kenku"];
 bot.on("message", msg=>{
     var message = msg.content.toLowerCase();
-    let prefix = "!";
-    let rollPre = "!";
+    let prefix = "~";
+    //let rollPre = "!";
     let botName = bot.user;
     if(msg.content.startsWith(prefix) || message.includes(botName)){}
     else return;
@@ -19,12 +19,12 @@ bot.on("message", msg=>{
         + "```css\n+ - * / ! ^n sqrt``` ```Typing a message with only numbers and one of these operands (no command needed) will do some math for you. (Example: [5!], [1+2], [sqrt64], [2^8], etc)\nNote: Does not support 'long math' yet. Keep things simple```"
         + "```css\n!flip``` ```Flips a coin```");
     }
-    if(message == prefix + "rollstats"){
+    if(message.startsWith(prefix + "rollstats")){
         var stat = rollStats();
         var total = totalMod(CalModifier(stat));
         msg.channel.sendMessage("Here's your generated statblock: " + stat + "\nHere are your modifiers: " + CalModifier(stat) + "\n" + total);
     }
-    if(message == prefix + "rollcharacter"){
+    if(message.startsWith(prefix + "rollcharacter")){
         msg.channel.sendMessage(rollCharacter());
     }
     if(msg.content.startsWith(prefix + "flip")){
@@ -85,7 +85,7 @@ bot.on("message", msg=>{
 bot.on("message", msg=>{
     
     var message = msg.content.toLowerCase();
-    let prefix = "!";
+    let prefix = "~";
     let botName = bot.user;
     if(msg.content.startsWith(prefix) && msg.content.includes("d")){
         var fullRoll = msg.content;
@@ -169,19 +169,24 @@ function choose(){
 }
 function rollCharacter(){
     var stats = rollStats();
-    console.log(stats);
+    //console.log(stats);
     stats = String(stats);
-    console.log(stats);
+    //console.log(stats);
     stats = stats.split(",");
-    console.log(stats[0]);
+    console.log(stats);
     var race = races[generateRace()];
     var dClass = classes[generateClass()];
-    var statsToSort = stats;
-    return assignPoints(dClass, stats, statsToSort, race);
+    //var statsToSort = stats;
+    
+    return assignPoints(dClass, stats, race);
 }
-function assignPoints(classes, stats, statsToSort, race){
+function assignPoints(classes, stats, race){
+    //stats = parseInt(stats);
+    stats = stats.map(Number);
+
+    stats = numSort(stats);
+    console.log("Shuffled stats! " + shuffle(stats));
     console.log(stats);
-    //statsToSort.sort();
     var str = stats[0];
     var con = stats[1];
     var dex = stats[2];
@@ -190,37 +195,91 @@ function assignPoints(classes, stats, statsToSort, race){
     var int = stats[5];
     
     if(classes == "Rogue"){
-        
+        var temp1 = dex;
+        dex = str;
+        str = temp1;
+        var temp2 = int;
+        int = con;
+        con = temp2;
     }
     if(classes == "Barbarian"){
-        
+        //good as is
     }
     if(classes == "Bard"){
-
+        var temp1 = cha;
+        cha = str;
+        str = temp1;
+        var temp2 = dex;
+        dex = con;
+        con = temp2;
+    }
+    if(classes == "Cleric"){
+        var temp1 = wis;
+        wis = str;
+        str = temp1;
+        var temp2 = cha;
+        cha = con;
+        con = temp2;
     }
     if(classes == "Druid"){
-
+        var temp1 = wis;
+        wis = str;
+        str = temp1;
+        var temp2 = int;
+        int = con;
+        con = temp2;
     }
     if(classes == "Fighter"){
-
+        //good as is?
     }
     if(classes == "Monk"){
-
+        var temp1 = dex;
+        dex = str;
+        str = temp1;
+        var temp2 = str;
+        str = con;
+        con = temp2;
     }
     if(classes == "Paladin"){
-
+        var temp1 = wis;
+        wis = str;
+        str = temp1;
+        var temp2 = cha;
+        cha = con;
+        con = temp2;
     }
     if(classes == "Ranger"){
+        var temp1 = dex;
+        dex = str;
+        str = temp1;
+        var temp2 = str;
+        str = con;
+        con = temp2;
 
     }
     if(classes == "Sorcerer"){
-
+        var temp1 = cha;
+        cha = str;
+        str = temp1;
+        var temp2 = con;
+        con = str;
+        str = temp2;
     }
     if(classes == "Warlock"){
-
+        var temp1 = cha;
+        cha = str;
+        str = temp1;
+        var temp2 = wis;
+        wis = con;
+        con = temp2;
     }
     if(classes == "Wizard"){
-
+        var temp1 = int;
+        int = str;
+        str = temp1;
+        var temp2 = wis;
+        wis = con;
+        con = temp2;
     }
 
     var final = "Race: " + race + "\n" +
@@ -231,9 +290,19 @@ function assignPoints(classes, stats, statsToSort, race){
                 "Cha: " + cha + "\n" +
                 "Wis: " + wis + "\n" +
                 "Int: " + int + "\n";
-    console.log(stats);
-    console.log(statsToSort);
+    //console.log(stats);
+    //console.log(statsToSort);
     return final;
+}
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i > 2; i--){
+        j = Math.floor(Math.random() * 4) + 2;
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
 }
 function numSort(a){
     for(i = 0; i < a.length; i++){
@@ -276,15 +345,16 @@ function rollStats(){
         //console.log(score);
     }
     var total = ModInt(CalModifier(score));
-    console.log(stat);
-    console.log(score);
-    console.log(total);
+    //console.log(stat);
+    //console.log(score);
+    //console.log(total);
 
     if(total < 0){
         console.log("Im here");
         score = rollStats();
 
     }
+    //console.log(score);
     return score;
 
 }
@@ -368,4 +438,4 @@ function Roll(dieNum, dieSide, mod){
     }
     else {return total + " = (" + rolls + ")" + " + " + mod;}
 }
-bot.login('MzE0MTg0NzMzNTczNjQ0Mjg4.C_0fAA.pEbYZb5w06PKvr2Lv_HqcJ-X63k');
+bot.login('MzU2NDk5MTEwMDI4NzcxMzQw.DJcPMQ.3pgzST39UgYoYjjmEplDzFHRKko');
