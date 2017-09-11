@@ -177,7 +177,7 @@ function rollCharacter(){
     var race = races[generateRace()];
     var dClass = classes[generateClass()];
     var statsToSort = stats;
-    return assignPoints(dClass, stats, statsToSort, race);
+    return assignPoints(dClass, stats, race);
 }/*
 function assignPoints(classes, stats, statsToSort, race){
     console.log(stats);
